@@ -1,0 +1,41 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: gilroy;
+}
+html,
+body {
+    height: 100%;
+    width: 100%;
+    background-color: #156b22;
+}
+
+.playground {
+    display: flex;
+}
+
+#poll {
+    height: 200px;
+    z-index: 1;
+}
+
+#net {
+    height: 200px;
+    z-index: 1;
+}
+
+#ball {
+    height: 48px;
+}
+
+#goal {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: white;
+    font-size: 120px;
+}
+
+
