@@ -65,12 +65,14 @@ const ee = document.getElementById('ee');
 			if(Math.abs(p.y - stringY) < responseZone) {
 				// String is in active zone
 				activeStrings[i] = true;
+				var controlX, controlY;
 				if (p.x > stringX && p.x < s.endX) {
-					var controlX = p.x.toFixed(2);
-					var controlY = p.y.toFixed(2);
+					controlX = p.x.toFixed(2);
+					controlY = p.y.toFixed(2);
 				}
 				else {
-					var controlY = stringY;
+					controlX = stringX;
+					controlY = stringY;
 				}
 				var d = 'M ' + s.start + ' Q ' + controlX + ' ' + controlY + ' ' + s.endX + ' ' + s.endY;
 				console.log(el.id);
