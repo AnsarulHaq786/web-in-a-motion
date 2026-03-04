@@ -13,6 +13,12 @@ var final_string_3 = "M976.395, 1284.953 Q1800 1262 2786 1242";
 var final_string_2 = "M976.567, 1309.599 Q1800 1286 2786 1256";
 var final_string_1 = "M976.742, 1334.551 Q1800 1306 2786 1270";
 
+const E = document.getElementById('E');
+const a = document.getElementById('a');
+const d = document.getElementById('d');
+const g = document.getElementById('g');
+const b = document.getElementById('b');
+const ee = document.getElementById('ee');
 
 ;(function(){
 	var container = document.querySelector('#guitar');
@@ -64,10 +70,30 @@ var final_string_1 = "M976.742, 1334.551 Q1800 1306 2786 1270";
 					var controlY = p.y.toFixed(2);
 				}
 				else {
-					var controlX = stringX;
 					var controlY = stringY;
 				}
 				var d = 'M ' + s.start + ' Q ' + controlX + ' ' + controlY + ' ' + s.endX + ' ' + s.endY;
+				console.log(el.id);
+				switch (el.id) {
+					case '1':
+						ee.play();
+						break;
+					case '2':
+						b.play();
+						break;
+					case '3':
+						g.play();
+						break;
+					case '4':
+						d.play();
+						break;
+					case '5':
+						a.play();
+						break;
+					case '6':
+						E.play();
+						break;
+				}
 				
 				gsap.to(el, {
 					attr: { d: d },
@@ -88,7 +114,7 @@ var final_string_1 = "M976.742, 1334.551 Q1800 1306 2786 1270";
 		});
 	});
     
-	container.addEventListener('mouseleave', function(){
+	container.addEventListener('mouseleave', function () {
 		stringPaths.forEach(function(el, i){
 			var delay = i * 0.06;
 			gsap.to(el, {
