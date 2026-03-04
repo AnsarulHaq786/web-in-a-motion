@@ -53,13 +53,20 @@ var final_string_1 = "M976.742, 1334.551 Q1800 1306 2786 1270";
 		stringPaths.forEach(function(el, i){
 			var s = parsed[i];
 			var stringY = parseFloat(s.start.split(/\s+/)[1]);
+			var stringX = parseFloat(s.start.split(/\s+/)[0]);
 			var responseZone = 50;
 
 			if(Math.abs(p.y - stringY) < responseZone) {
 				// String is in active zone
 				activeStrings[i] = true;
-				var controlX = p.x.toFixed(2);
-				var controlY = p.y.toFixed(2);
+				if (p.x > stringX && p.x < s.endX) {
+					var controlX = p.x.toFixed(2);
+					var controlY = p.y.toFixed(2);
+				}
+				else {
+					var controlX = stringX;
+					var controlY = stringY;
+				}
 				var d = 'M ' + s.start + ' Q ' + controlX + ' ' + controlY + ' ' + s.endX + ' ' + s.endY;
 				
 				gsap.to(el, {
