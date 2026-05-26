@@ -8,34 +8,42 @@ html,
 body {
     height: 100%;
     width: 100%;
-    background-color: #156b22;
+    /* fix width, no scroll */
+    
+    background-color: rgb(15, 162, 15);
 }
 
-.playground {
-    display: flex;
+.goal-wrapper {
+    width: fit-content;
+    /* background-color: aliceblue; */
+    position: relative;
 }
 
-#poll {
-    height: 200px;
-    z-index: 1;
-}
-
-#net {
-    height: 200px;
-    z-index: 1;
+#goal-post {
+    height: 360px;
+    width: 296px;
+    margin: -28px;
+    position: fixed;
+    right: -42px;
+    top: 50%;
+    transform: translate(0, -50%);
+    /* z-index: 10;
+    draggable: false */
 }
 
 #ball {
-    height: 48px;
-}
-
-#goal {
     position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    color: white;
-    font-size: 120px;
+    height: 48px;
+    cursor: grab;
+    /* manage z index */
+    /* background-color: aliceblue; */
 }
 
-
+#sling-svg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+}
