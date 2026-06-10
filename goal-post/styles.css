@@ -6,29 +6,96 @@
 }
 html,
 body {
-    height: 100%;
+    height: 100vh;
     width: 100%;
-    /* fix width, no scroll */
-    
     background-color: rgb(15, 162, 15);
 }
 
-.goal-wrapper {
-    width: fit-content;
-    /* background-color: aliceblue; */
+.playground {
+    min-height: 100vh;
+    width: 100%;
+    background-image: repeating-linear-gradient(
+        90deg,
+        #2f8b2f 0px,
+        #2f8b2f 80px,
+        #3bb43b 80px,
+        #3bb43b 160px
+    );
     position: relative;
+    overflow: hidden;
+}
+
+.hud {
+    position: fixed;
+    left: 12px;
+    top: 12px;
+    color: #fff;
+    font-weight: 700;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+}
+
+.goal-wrapper {
+    position: fixed;
+    right: -72px;
+    top: 50%;
+    transform: translate(0, -50%);
+    width: 296px;
+    height: 360px;
+    pointer-events: none;
 }
 
 #goal-post {
-    height: 360px;
     width: 296px;
-    margin: -28px;
-    position: fixed;
-    right: -42px;
-    top: 50%;
-    transform: translate(0, -50%);
-    /* z-index: 10;
-    draggable: false */
+    height: 360px;
+    display: block;
+}
+
+#goal-hitboxes {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    background-color: aqua;
+    opacity: 50%;
+}
+
+.pole {
+    position: absolute;
+    background: rgba(255, 3, 32, 1);
+}
+
+#pole-left {
+    left: 8px;
+    top: 20px;
+    width: 24px;
+    height: 300px;
+    background: rgb(192, 75, 184);
+}
+
+#pole-right {
+    right: 8px;
+    top: 20px;
+    width: 24px;
+    height: 300px;
+    background: rgb(255, 226, 231);
+}
+
+#crossbar {
+    left: 40px;
+    top: 8px;
+    width: 216px;
+    height: 280px;
+    background: rgb(17, 66, 3);
+}
+
+#goal-entry {
+    left: 40px;
+    top: 28px;
+    width: 216px;
+    height: 280px;
+    background: rgb(78, 19, 173);
 }
 
 #ball {
