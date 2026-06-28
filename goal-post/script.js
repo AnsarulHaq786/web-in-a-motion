@@ -13,7 +13,6 @@ const FRICTION=0.96
 const RESTITUTION=0.72
 const MIN_VELOCITY=0.35
 const REST_FRAMES=18
-const MIN_GOAL_VX=2.5
 
 let BALL_START_X=(Math.random()*window.innerWidth+1)/3+window.innerWidth/4
 let BALL_START_Y=(Math.random()*window.innerHeight+1)/2+window.innerHeight/4
@@ -25,7 +24,6 @@ const crossbarEl=document.getElementById('crossbar')
 const goalEntryEl=document.getElementById('goal-entry')
 const goalHitboxesEl=document.getElementById('goal-hitboxes')
 const goalFlashEl=document.getElementById('goal-flash')
-const goalParticlesEl=document.getElementById('goal-particles')
 const ballEl=document.getElementById('ball')
 const line=document.getElementById('sling-line')
 
@@ -34,9 +32,9 @@ let vx=0
 let vy=0
 let isFlying=false
 let goalScoredThisShot=false
-let isCelebrating=false
 let restFrames=0
 let prevBallCenterX=0
+let crossedGoalMouth=false
 let debugVisible=new URLSearchParams(location.search).has('debug')
 
 function aabbCollision(rect1, rect2) {
@@ -81,7 +79,6 @@ function clearSlingLine() {
 }
 
 function applyBallStretch() {
-    // Shearing removed as per user request
     gsap.set(ballEl, {scaleX:1, scaleY:1, rotation:0})
 }
 
@@ -152,70 +149,51 @@ function handleWallBounces(ballRect) {
 }
 
 function isValidGoal(ballRect, entryRect) {
-    if (goalScoredThisShot || isCelebrating) return false
-    if (vx<MIN_GOAL_VX) return false
+    if (goalScoredThisShot) return false
+    if (vx<=0) return false
     if (!aabbCollision(ballRect, entryRect)) return false
 
     const ballCx=(ballRect.left+ballRect.right)/2
-    const crossedFront=prevBallCenterX<=entryRect.left+8 && ballCx>entryRect.left+12
-    const deepEnough=ballCx>entryRect.left+entryRect.width*0.12
+    const ballCy=(ballRect.top+ballRect.bottom)/2
+    const crossedFront=prevBallCenterX<=entryRect.left+BALL_RADIUS && ballCx>entryRect.left+BALL_RADIUS
+    const insideGoalArea=(
+        ballCx>entryRect.left+BALL_RADIUS &&
+        ballCx<entryRect.right-BALL_RADIUS*0.25 &&
+        ballCy>entryRect.top+BALL_RADIUS*0.5 &&
+        ballCy<entryRect.bottom-BALL_RADIUS*0.5
+    )
 
-    return crossedFront && deepEnough
+    if (crossedFront) crossedGoalMouth=true
+
+    return crossedGoalMouth && insideGoalArea
 }
 
-function spawnGoalParticles(entryRect) {
-    goalParticlesEl.innerHTML=''
-    const cx=entryRect.left+entryRect.width*0.65
-    const cy=entryRect.top+entryRect.height*0.45
-
-    for (let i=0; i<10; i++) {
-        const p=document.createElement('span')
-        p.className='goal-particle'
-        p.style.left=(cx+(Math.random()-0.5)*40)+'px'
-        p.style.top=(cy+(Math.random()-0.5)*30)+'px'
-        goalParticlesEl.appendChild(p)
-
-        gsap.to(p, {
-            x:(Math.random()-0.5)*80,
-            y:(Math.random()-0.5)*80-20,
-            opacity:0,
-            scale:0,
-            duration:0.55+Math.random()*0.25,
-            ease:'power2.out'
-        })
-    }
-}
-
-function celebrateGoal() {
-    isCelebrating=true
-    goalScoredThisShot=true
-    isFlying=false
-    vx=0
-    vy=0
-
-    score++
+function updateGoalCounter() {
     scoreValue.textContent=score
 
     gsap.fromTo(scoreValue,
         {scale:1},
         {scale:1.65, duration:0.18, yoyo:true, repeat:1, ease:'back.out(3)'}
     )
+}
+
+function recordGoal() {
+    goalScoredThisShot=true
+
+    score++
+    updateGoalCounter()
 
     gsap.fromTo(goalFlashEl,
         {opacity:0.75},
         {opacity:0, duration:0.55, ease:'power2.out'}
     )
 
-    spawnGoalParticles(goalEntryEl.getBoundingClientRect())
-
-    gsap.delayedCall(0.75, resetBall)
 }
 
 function resetBall(randomize = true) {
     if (randomize) {
         randomBallStart()
     } else {
-        // Keep current position as the new start position
         BALL_START_X = gsap.getProperty(ballEl, 'x')
         BALL_START_Y = gsap.getProperty(ballEl, 'y')
     }
@@ -233,8 +211,8 @@ function resetBall(randomize = true) {
     vy=0
     isFlying=false
     goalScoredThisShot=false
-    isCelebrating=false
     restFrames=0
+    crossedGoalMouth=false
     prevBallCenterX=BALL_START_X+BALL_RADIUS
     clearSlingLine()
     draggable.enable()
@@ -242,11 +220,13 @@ function resetBall(randomize = true) {
 }
 
 function stopFlightAndReset() {
+    const shouldRegenerate=goalScoredThisShot
+
     isFlying=false
     vx=0
     vy=0
     gsap.set(ballEl, {scale:1, scaleX:1, scaleY:1, rotation:0})
-    gsap.delayedCall(0.1, () => resetBall(false))
+    gsap.delayedCall(0.1, () => resetBall(shouldRegenerate))
 }
 
 function launchBall(dx, dy) {
@@ -261,6 +241,7 @@ function launchBall(dx, dy) {
 
     isFlying=true
     goalScoredThisShot=false
+    crossedGoalMouth=false
     restFrames=0
     prevBallCenterX=gsap.getProperty(ballEl, 'x')+BALL_RADIUS
 
@@ -271,7 +252,7 @@ function launchBall(dx, dy) {
 }
 
 function physicsUpdate() {
-    if (!isFlying || isCelebrating) return
+    if (!isFlying) return
 
     const dt=gsap.ticker.deltaRatio()
 
@@ -292,10 +273,7 @@ function physicsUpdate() {
 
     ballRect=ballEl.getBoundingClientRect()
 
-    if (isValidGoal(ballRect, entryRect)) {
-        celebrateGoal()
-        return
-    }
+    if (isValidGoal(ballRect, entryRect)) recordGoal()
 
     handleWallBounces(ballRect)
     applyBallStretch()
@@ -329,7 +307,7 @@ const draggable=Draggable.create('#ball', {
     zIndexBoost:false,
 
     onDragStart:function() {
-        if (isFlying || isCelebrating) return false
+        if (isFlying) return false
         gsap.to(ballEl, {scale:0.8, duration:0.16})
     },
 

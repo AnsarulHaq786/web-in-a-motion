@@ -23,15 +23,16 @@
 
                 <!-- Depth/Net Plane -->
                 <path d="M 60 70 L 285 85 L 285 295 L 60 310 Z" fill="url(#net-pattern)" stroke="rgba(255,255,255,0.2)" />
-                <path d="M 60 70 L 60 310 L 30 320 L 30 60 Z" fill="rgba(255,255,255,0.08)" />
+                <!-- Entry Point -->
+                <!-- <path d="M 60 70 L 60 310 L 30 320 L 30 60 Z" fill="rgba(255,255,255,0.08)" /> -->
 
-                <!-- Bottom side blocks shots where the red marker was indicated -->
-                <rect x="60" y="300" width="225" height="10" fill="#c0c0c0" rx="2" />
+                <!-- Bottom side block -->
+                <rect x="60" y="300" width="220" height="20" fill="#c0c0c0" rx="2" />
                 
                 <!-- Back vertical bar -->
                 <rect x="275" y="85" width="10" height="210" fill="#b0b0b0" rx="1" />
 
-                <!-- Front-left side remains open where the green marker was indicated -->
+                <!-- Front-left side -->
                 <rect x="60" y="50" width="220" height="20" rx="3" fill="#e8e8e8" />
             </svg>
 
@@ -45,8 +46,11 @@
             <div id="goal-particles"></div>
         </div>
 
-        <div class="hud">
-            <div id="score">Score: <span id="score-value">0</span></div>
+        <div class="hud" aria-live="polite">
+            <div class="goal-counter" id="goal-counter">
+                <span class="goal-counter__label">Goals</span>
+                <span class="goal-counter__value" id="score-value">0</span>
+            </div>
         </div>
 
         <svg id="sling-svg">
