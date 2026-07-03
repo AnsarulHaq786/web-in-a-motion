@@ -7,11 +7,11 @@ const GOAL_GEOMETRY={
 }
 
 const BALL_RADIUS=24
-const MAX_DRAG=300
-const LAUNCH_MULTIPLIER=2.2
+const MAX_DRAG=600
+const LAUNCH_MULTIPLIER=8
 const FRICTION=0.96
-const RESTITUTION=0.72
-const MIN_VELOCITY=0.35
+const RESTITUTION=0.82
+const MIN_VELOCITY=0.4
 const REST_FRAMES=18
 
 let BALL_START_X=(Math.random()*window.innerWidth+1)/3+window.innerWidth/4
@@ -234,7 +234,7 @@ function launchBall(dx, dy) {
     if (dragDistance<8) return
 
     const power=Math.min(dragDistance/MAX_DRAG, 1)
-    const speed=(6+power*16)*LAUNCH_MULTIPLIER*(dragDistance/MAX_DRAG+0.35)
+    const speed=(8+power*24)*LAUNCH_MULTIPLIER*(dragDistance/MAX_DRAG+0.35)
 
     vx=(-dx/dragDistance)*speed
     vy=(-dy/dragDistance)*speed
@@ -267,7 +267,7 @@ function physicsUpdate() {
     gsap.set(ballEl, {x, y})
 
     let ballRect=ballEl.getBoundingClientRect()
-    const entryRect=goalEntryEl.getBoundingClientRect()
+    const entryRect=antryEl.getBoundingClientRect()
 
     handleGoalPostCollisions(ballRect)
 
@@ -316,6 +316,8 @@ const draggable=Draggable.create('#ball', {
         line.setAttribute('y1', BALL_START_Y+BALL_RADIUS)
         line.setAttribute('x2', this.x+BALL_RADIUS)
         line.setAttribute('y2', this.y+BALL_RADIUS)
+        
+        // add sound
     },
 
     onDragEnd:function() {
