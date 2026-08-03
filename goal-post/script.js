@@ -267,7 +267,7 @@ function physicsUpdate() {
     gsap.set(ballEl, {x, y})
 
     let ballRect=ballEl.getBoundingClientRect()
-    const entryRect=antryEl.getBoundingClientRect()
+    const entryRect=goalEntryEl.getBoundingClientRect()
 
     handleGoalPostCollisions(ballRect)
 
