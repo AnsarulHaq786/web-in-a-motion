@@ -12,12 +12,12 @@ var final_string_3 = "M976.395, 1284.953 Q1800 1262 2786 1242";
 var final_string_2 = "M976.567, 1309.599 Q1800 1286 2786 1256";
 var final_string_1 = "M976.742, 1334.551 Q1800 1306 2786 1270";
 
-const E = document.getElementById("E");
-const a = document.getElementById("a");
-const D = document.getElementById("d");
-const g = document.getElementById("g");
-const b = document.getElementById("b");
-const ee = document.getElementById("ee");
+const E = document.getElementById("E1");
+const a = document.getElementById("A2");
+const D = document.getElementById("D3");
+const g = document.getElementById("G4");
+const b = document.getElementById("B5");
+const ee = document.getElementById("E6");
 
 // play a note and stop it after a duration
 function playNote(audio, duration) {
