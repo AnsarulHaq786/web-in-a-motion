@@ -185,6 +185,24 @@ nav button {
     padding: 36px 24px;
 }
 
+.box1, .box3 {
+    background-color: #f3f3f3;
+}
+
+.box2 {
+    background-color: #b9ff66;
+}
+
+.box3 {
+    background-color: #000000;
+}
+
+.box3 .content {
+    h4, p {
+    color: #fff;
+    }
+}
+
 .content {
     display: flex;
     flex-direction: column;
