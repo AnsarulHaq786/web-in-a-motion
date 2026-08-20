@@ -96,6 +96,7 @@ nav button {
     font-weight: 300;
     line-height: 24px;
     margin-top: 24px;
+    margin-left: 6px;
 }
 
 .content-1 button {
@@ -106,7 +107,7 @@ nav button {
     padding: 20px 36px;
     border-radius: 12px;
     border: none;
-    margin-top: 16px;
+    margin-top: 24px;
 }
 
 .content-2 {
@@ -143,7 +144,8 @@ nav button {
     justify-content: flex-start;
     padding: 24px 70px;
     gap: 24px;
-    margin-top: 24px;
+    margin-top: 12px;
+    margin-left: 12px;
 }
 
 .services h3 {
@@ -221,4 +223,30 @@ nav button {
 .content p {
     font-size: 20px;
     font-weight: 200;
+}
+
+.section3 {
+    width: 100%;
+    height: 10vh;
+    background-color: #b9ff66;
+    padding: 16px 24px;
+    overflow: clip;
+}
+
+.section3 footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+footer h1 {
+    font-size: 36px;
+    font-weight: 500;
+}
+
+footer h1 i{
+    display: inline-block;
+    color: #000000;
+    rotate: 45deg;
+    margin-right: 12px;
 }
