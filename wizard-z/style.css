@@ -1,0 +1,206 @@
+@font-face {
+    font-family: "Space Grotesk";
+    src: url("./Space_Grotesk/SpaceGrotesk-VariableFont_wght.ttf") format("truetype");
+    font-weight: 300 700;
+    font-style: normal;
+    font-display: swap;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Space Grotesk", sans-serif;
+}
+
+html, body {
+    width: 100%;
+    height: 100%;
+}
+
+.section1 {
+    height: 100%;
+    width: 100%;
+    position: relative;
+}
+
+nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 24px 70px;
+}
+
+.nav-items {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 48px;
+}
+
+nav h1 {
+    font-size: 36px;
+    font-family: 'Courier New', Courier, monospace;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+}
+
+nav h1 i {
+    font-size: 32px;
+    color: #b9ff66;
+    rotate: 45deg;
+    display: inline-block;
+}
+
+nav h4 {
+    font-size: 16px;
+    font-weight: 500;
+}
+
+nav button {
+    padding: 18px 30px;
+    font-size: 20px;
+    font-weight: 400;
+    border-radius: 16px;
+    border: 1px solid #000;
+    background-color: #fff;
+}
+
+.center {
+    padding: 28px;
+    height: auto;
+    width: 100%;
+    display: flex;
+}
+
+.content-1 {
+    height: 100%;
+    width: 50%;
+    padding: 28px 48px;
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    justify-content: start;
+}
+
+.content-1 h1 {
+    font-size: 60px;
+    font-weight: 600;
+    line-height: 60px;
+}
+
+.content-1 p {
+    font-size: 20px;
+    font-weight: 300;
+    line-height: 24px;
+    margin-top: 24px;
+}
+
+.content-1 button {
+    color: #fff;
+    background-color: #000;
+    font-size: 20px;
+    font-weight: 300;
+    padding: 20px 36px;
+    border-radius: 12px;
+    border: none;
+    margin-top: 16px;
+}
+
+.content-2 {
+    height: 100%;
+    width: 50%;
+    position: relative;
+}
+
+.content-2 img {
+    position: absolute;
+    right: 48px;
+}
+
+.section1bottom {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 96px;
+    padding: 32px;
+    margin-top: 48px;
+}
+
+.section1bottom img {
+    height: 48px;
+}
+
+.section2 {
+    position: relative;
+}
+
+.section2 .services {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    padding: 24px 70px;
+    gap: 24px;
+    margin-top: 24px;
+}
+
+.services h3 {
+    background-color: #b9ff66;
+    font-size: 48px;
+    font-weight: 500;
+    padding: 0px 8px;
+    border-radius: 4px;
+}
+
+.services p {
+    width: 60%;
+    font-size: 20px;
+    font-weight: 300;
+    line-height: 24px;
+}
+
+.container {
+    height: 90%;
+    width: 100%;
+    padding: 36px 70px;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+.box {
+    height: 45%;
+    width: 48%;
+    flex-shrink: 0;
+    background-color: #fff;
+    border: 1px solid #040700;
+    border-radius: 48px;
+    box-shadow: 0px 8px 0px black;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 36px 24px;
+}
+
+.content {
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    justify-content: center;
+    gap: 16px;
+    padding: 0px 12px;
+}
+
+.content h4 {
+    font-size: 28px;
+    font-weight: 500;
+    
+}
+
+.content p {
+    font-size: 20px;
+    font-weight: 200;
+}
